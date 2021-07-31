@@ -1,0 +1,56 @@
+resp = input('Deseja iniciar o programa s/n')
+armazemt = list()
+armzem = dict()
+
+
+qcpf = 0
+qvali = 0
+qinvali = 0
+while resp == 's':
+    qcpf +=1
+    resultvali = ''
+    cpfn = list()
+    cpf = input('Digite seu CPF ').replace('.','').replace('-','')
+    #validacao quantidade
+    if len(cpf) > 11 or len(cpf) < 11:
+        print('CPF invalido')
+        resp = input('Deseja validar outro CPF s/n')
+    #lista do CPF
+    for x in cpf:
+        x = int(x)
+        cpfn.append(x)
+    #primeiro digito CPF
+    result = 0
+    resultf = 0
+    mult = 10
+    for n in cpfn[0:9]:
+        resultf = n * mult
+        result += resultf
+        mult = mult -1
+    result = result *10 % 11
+    if result == 10:
+        resultf = 0
+    #Segundo digito CPF
+    resultx = 0
+    resultfx = 0
+    multx = 11
+    for n in cpfn[0:10]:
+        resultfx = n * mult
+        resultx += resultfx
+        multx = multx - 1
+    resultx = resultx * 10 % 11
+    if resultx == 10:
+        resultfx = 0
+    if result == cpfn[9] and resultx == cpfn[10]:
+        resultvali = ('CPF valido')
+        qvali = qvali + 1
+    else:
+        resultvali = ('CPF Invalido')
+        qinvali = qinvali + 1
+    armzem = {'cpf':cpf, 'validação': resultvali}
+    armazemt.append(armzem)
+    del (cpfn)
+    del (armzem)
+    resp = input('Deseja validar outro CPF s/n ')
+    if resp =='n':
+      break
